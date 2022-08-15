@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class MenuUI : MonoBehaviour
 {
-    public void menuStart()
+    public void MenuStart()
     {
         LoadLvl.StartLoad(E_Scenes.Game);
     }
 
-    public void menuExit()
+    public void MenuExit()
     { 
         Application.Quit();
     }
