@@ -48,31 +48,44 @@ public class BotScr : MonoBehaviour, IBot
 
     public void AttackTarg(ObjScr targ)
     {        
-        if (targ.GetHp() <= data.damage)
-        {
-            data.score++;
-            ui.onScoreChange.Invoke();
-        }
-        targ.ApplyDamage(data.damage);
+        if (targ != null)
+        StartCoroutine(AtkUnitlDie(targ));
     }
 
-    public void Attach(Transform targ)
-    {        
+    public void Attach()
+    {
         movement.MoveToTarg();
     }
 
     public void Die()
     {
+        movement.SetTaget(null);
         Destroy(gameObject);
+    }
+
+    private void LateUpdate()
+    {
+        if (movement.isReached)
+        {
+            AttackTarg(movement.target.GetComponent<ObjScr>());
+        }
+        if (movement.target == null)
+        {
+            FindTarg();
+        }
     }
 
     public void FindTarg()
     {
-        var targ = movement.MarkClosedTarget();
-        if (targ != null)
-        {        
+        if (movement.target == null)
+        {
+            var targ = movement.MarkClosedTarget();
+
+            if (targ != null)
+            { 
             movement.SetTaget(targ);
-            Attach(movement.target);
+            Attach();
+            }
         }
     }
 
@@ -88,5 +101,21 @@ public class BotScr : MonoBehaviour, IBot
     public void IncreaseDamage(int mod)
     {
         data.damage += mod;
+    }
+
+    private IEnumerator AtkUnitlDie(ObjScr targ)
+    {
+        while (movement.target != null)
+        {        
+            if (targ.GetHp() <= data.damage)
+            {                
+                data.score++;
+                ui.onScoreChange.Invoke();
+                movement.isReached = false;
+            }            
+            targ.ApplyDamage(data.damage);
+            yield return null;
+        }
+        yield return null;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ObjData))]
 public class ObjScr : MonoBehaviour, IObj
@@ -25,7 +26,7 @@ public class ObjScr : MonoBehaviour, IObj
     }
 
     public void Die()
-    {
+    {        
         Destroy(gameObject);
     }
     public int GetHp()

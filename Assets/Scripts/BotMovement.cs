@@ -11,7 +11,8 @@ public class BotMovement : MonoBehaviour
 
     public BotData botData;
 
-    
+    public bool isReached = false;
+
     private void Start()
     { 
         botData = GetComponent<BotData>();
@@ -27,16 +28,17 @@ public class BotMovement : MonoBehaviour
     {
         StartCoroutine(Atach(target));
     }
-    public bool isReached;
+    
 
     private IEnumerator Atach(Transform target)
     {
         while(!CheckDestinationReached())
-        {            
+        {
             agent.SetDestination(target.position);
             yield return null;
         }
         agent.SetDestination(this.transform.position);
+        isReached = true;
         yield return null;
     }
 
@@ -44,7 +46,7 @@ public class BotMovement : MonoBehaviour
     {
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
         if (distanceToTarget < 1.5f)
-        {
+        {            
             return true;
         }
         return false;
@@ -78,6 +80,7 @@ public class BotMovement : MonoBehaviour
 
     public Transform MarkClosedTarget()
     {
+
         Collider[] hits = Physics.OverlapSphere(transform.position, 35f, LayerMask.GetMask("isObj"));
         if (hits.Length > 0)
         {
@@ -98,7 +101,12 @@ public class BotMovement : MonoBehaviour
                     }
                 }
             }
-            return hits[num2].transform;
+            if (hits[num2].transform.root != transform)
+            {
+                return hits[num2].transform;
+            }
+            else
+                return null;
         }
         return null;
     }
