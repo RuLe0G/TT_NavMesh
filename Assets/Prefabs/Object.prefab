@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5251106789378269958}
   - component: {fileID: 5972292046981824100}
   - component: {fileID: 6249173342872833865}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.51}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 2, y: 2.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5251106789378269958
 Canvas:
@@ -117,7 +117,8 @@ GameObject:
   - component: {fileID: 1395583829200525460}
   - component: {fileID: 6843901722159539768}
   - component: {fileID: 3263507142418405923}
-  m_Layer: 0
+  - component: {fileID: 6273736989603438153}
+  m_Layer: 6
   m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +242,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpText: {fileID: 4443700260644215908}
-  data: {fileID: 0}
+  onHpChange:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!54 &6273736989603438153
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2836506840869230102}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &5264739675838032763
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +272,7 @@ GameObject:
   - component: {fileID: 3206036798155813653}
   - component: {fileID: 276734137032485833}
   - component: {fileID: 7107560555394275120}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +348,7 @@ GameObject:
   - component: {fileID: 8328720799215446668}
   - component: {fileID: 4426911641474092267}
   - component: {fileID: 4443700260644215908}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}

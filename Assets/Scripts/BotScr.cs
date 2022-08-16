@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Jobs;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(BotData), typeof(BotMovement))]
 public class BotScr : MonoBehaviour, IBot
@@ -8,7 +11,6 @@ public class BotScr : MonoBehaviour, IBot
     private BotData data;
     private BotMovement movement;
 
-    [Header("-----")]
     [SerializeField]
     int maxHP = 50;
     [SerializeField]
@@ -30,6 +32,7 @@ public class BotScr : MonoBehaviour, IBot
         movement = GetComponent<BotMovement>();
         ui = GetComponent<UIBot>();
         Generate();
+        FindTarg();
     }
 
     public void ApplyDamage(int damage)
@@ -44,21 +47,17 @@ public class BotScr : MonoBehaviour, IBot
     }
 
     public void AttackTarg(ObjScr targ)
-    {
-        if (targ.GetHp() >= data.damage)
+    {        
+        if (targ.GetHp() <= data.damage)
         {
-            targ.ApplyDamage(data.damage);
-        }
-        else
-        {
-            targ.ApplyDamage(data.damage);
             data.score++;
             ui.onScoreChange.Invoke();
         }
+        targ.ApplyDamage(data.damage);
     }
 
-    public void Attach(ObjData targ)
-    {
+    public void Attach(Transform targ)
+    {        
         movement.MoveToTarg();
     }
 
@@ -69,7 +68,12 @@ public class BotScr : MonoBehaviour, IBot
 
     public void FindTarg()
     {
-        throw new System.NotImplementedException();
+        var targ = movement.MarkClosedTarget();
+        if (targ != null)
+        {        
+            movement.SetTaget(targ);
+            Attach(movement.target);
+        }
     }
 
     public void Generate()

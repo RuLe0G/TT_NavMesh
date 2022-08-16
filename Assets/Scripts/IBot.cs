@@ -6,7 +6,9 @@ interface IBot : IObj
 
     void FindTarg();
 
-    void Attach(ObjData targ);
+    void Attach(Transform targ);
 
     void Generate();
+
+    void AttackTarg(ObjScr targ);
 }

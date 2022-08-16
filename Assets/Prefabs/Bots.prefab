@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -3631330519321414926}
   - component: {fileID: 6036130132333117564}
   - component: {fileID: 4447383851145575347}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,9 +117,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!195 &-3495730805511343070
 NavMeshAgent:
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   botData: {fileID: 7863867855911060564}
+  isReached: 0
 --- !u!114 &6036130132333117564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,8 +204,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpText: {fileID: 5390542845909448213}
-  data: {fileID: 0}
   scoreText: {fileID: 1031014140916435321}
+  onHpChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onScoreChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1706267812276946820
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +222,7 @@ GameObject:
   - component: {fileID: 1595242633353223258}
   - component: {fileID: 7154776153476430731}
   - component: {fileID: 1031014140916435321}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +358,7 @@ GameObject:
   - component: {fileID: 5218427617733935339}
   - component: {fileID: 3549328502675651459}
   - component: {fileID: 5042857708635491794}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +460,7 @@ GameObject:
   - component: {fileID: 2394205914602661697}
   - component: {fileID: 6417955845953112134}
   - component: {fileID: 6959786792052064138}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +536,7 @@ GameObject:
   - component: {fileID: 3807584601483191360}
   - component: {fileID: 4950276839328627655}
   - component: {fileID: 5390542845909448213}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
