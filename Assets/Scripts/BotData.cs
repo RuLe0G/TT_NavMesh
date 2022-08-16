@@ -1,27 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class BotData : MonoBehaviour
-{
-    [SerializeField]
-    private int _health;
+public class BotData : ObjData
+{    
     [SerializeField]
     private int _damage;
     [SerializeField]
     private int movSpeed;
+    [SerializeField]
+    private int _score;
 
-    public void ApplyDamage(int damage)
-    { 
-        _health -= damage;
+    public int score => _score;
 
-        if (_health < 0)
-        { 
-            Die();
-        }
-    }
-    public void Die()
-    { 
-        Destroy(gameObject);
+    public int damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
     }
 }

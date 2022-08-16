@@ -10,25 +10,18 @@ public class BotMovement : MonoBehaviour
 
     public BotData botData;
 
-    ///
-    public bool TempBool; 
-    ///
     
     private void Start()
     { 
         botData = GetComponent<BotData>();
-        agent = GetComponent<NavMeshAgent>();
-        ///        
-        target = GameObject.FindGameObjectWithTag("temp_targ").gameObject.GetComponent<Transform>();
+        agent = GetComponent<NavMeshAgent>(); 
+        
     }
 
-    private void Update()
+    public void MoveToTarg()
     {
-        if (TempBool)
-        {
-            StartCoroutine(Atach(target.position));
-            TempBool = false;
-        }
+        target = GameObject.FindGameObjectWithTag("temp_targ").gameObject.GetComponent<Transform>();
+        StartCoroutine(Atach(target.position));
     }
 
     private IEnumerator Atach(Vector3 target)
