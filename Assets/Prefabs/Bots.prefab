@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 2387891142390063585}
   - component: {fileID: 8911214925037848277}
   - component: {fileID: 495755248586000081}
-  - component: {fileID: 7863867855911060564}
   - component: {fileID: -3495730805511343070}
+  - component: {fileID: 7863867855911060564}
   - component: {fileID: -3631330519321414926}
+  - component: {fileID: 6036130132333117564}
   m_Layer: 0
   m_Name: Bots
   m_TagString: Untagged
@@ -118,21 +119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7863867855911060564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1053328487864702753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b92a31645aedf48b9df6da38c140bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 20
-  _damage: 2
-  movSpeed: 10
 --- !u!195 &-3495730805511343070
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -155,6 +141,22 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7863867855911060564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053328487864702753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b92a31645aedf48b9df6da38c140bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 5
+  _damage: 1
+  _movSpeed: 0
+  _score: 0
 --- !u!114 &-3631330519321414926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,4 +171,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   botData: {fileID: 7863867855911060564}
-  TempBool: 0
+--- !u!114 &6036130132333117564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053328487864702753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70a5864c98240864ba94c2ff8219ba0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 50
+  minHP: 10
+  maxDMG: 8
+  minDMG: 2

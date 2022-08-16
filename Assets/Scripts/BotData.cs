@@ -8,11 +8,12 @@ public class BotData : ObjData
     [SerializeField]
     private int _damage;
     [SerializeField]
-    private int movSpeed;
+    private float _movSpeed;
     [SerializeField]
     private int _score;
 
-    public int score => _score;
+    public int score => _score;    
+    public float movSpeed => _movSpeed;
 
     public int damage
     {

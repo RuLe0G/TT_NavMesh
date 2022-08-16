@@ -15,7 +15,10 @@ public class BotMovement : MonoBehaviour
     { 
         botData = GetComponent<BotData>();
         agent = GetComponent<NavMeshAgent>(); 
-        
+    }
+    public void Init(float speed)
+    {
+        agent.speed = speed;
     }
 
     public void MoveToTarg()
