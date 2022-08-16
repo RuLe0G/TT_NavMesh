@@ -22,20 +22,38 @@ public class BotScr : MonoBehaviour, IBot
     [SerializeField]
     private int speed = 5;
 
+    private UIBot ui;
+
     private void Start()
     {
         data = GetComponent<BotData>();
         movement = GetComponent<BotMovement>();
+        ui = GetComponent<UIBot>();
         Generate();
     }
 
     public void ApplyDamage(int damage)
     {
         data.health -= damage;
+        ui.onHpChange.Invoke();
 
         if (data.health <= 0)
         {
             Die();
+        }
+    }
+
+    public void AttackTarg(ObjScr targ)
+    {
+        if (targ.GetHp() >= data.damage)
+        {
+            targ.ApplyDamage(data.damage);
+        }
+        else
+        {
+            targ.ApplyDamage(data.damage);
+            data.score++;
+            ui.onScoreChange.Invoke();
         }
     }
 
