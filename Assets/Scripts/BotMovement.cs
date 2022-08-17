@@ -11,7 +11,7 @@ public class BotMovement : MonoBehaviour
 
     public BotData botData;
 
-    private bool isReached = false;
+    public bool isReached = false;
 
     private void Start()
     { 
@@ -28,28 +28,42 @@ public class BotMovement : MonoBehaviour
     {
         StartCoroutine(Atach(target));
     }
-    
 
-    private IEnumerator Atach(Transform target)
+
+    private IEnumerator Atach(Transform trg)
     {
+        if (trg != null)
+        {
+
         while(!CheckDestinationReached())
         {
-            agent.SetDestination(target.position);
+            if (trg != null)
+            {                
+            agent.SetDestination(trg.position); yield return null;
+            }
             yield return null;
         }
         agent.SetDestination(this.transform.position);
         isReached = true;
         yield return null;
+
+        }
+        yield return null;
     }
 
     private bool CheckDestinationReached()
     {
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < 1.5f)
-        {            
-            return true;
+        if (target != null)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget < 1.5f)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
+        else
+            return false;
     }
 
     public float CalculatePath()

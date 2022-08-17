@@ -6,7 +6,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 [RequireComponent(typeof(BotData), typeof(BotMovement))]
-public class BotScr : MonoBehaviour, IBot
+public class BotScr : EntentyScr, IBot
 {
     private BotData data;
     private BotMovement movement;
@@ -37,8 +37,10 @@ public class BotScr : MonoBehaviour, IBot
         FindTarg();
     }
 
-    public void ApplyDamage(int damage)
+    public override void ApplyDamage(int damage)
     {
+        if (data != null)
+        {        
         data.health -= damage;
         ui.onHpChange.Invoke();
 
@@ -46,9 +48,10 @@ public class BotScr : MonoBehaviour, IBot
         {
             Die();
         }
+        }
     }
 
-    public void AttackTarg(ObjScr targ)
+    public void AttackTarg(EntentyScr targ)
     {
         if (targ != null)
         {
@@ -58,7 +61,7 @@ public class BotScr : MonoBehaviour, IBot
         else
         {
             StopCoroutine(AtkUnitlDie(targ));
-            
+
         }
     }
 
@@ -67,13 +70,14 @@ public class BotScr : MonoBehaviour, IBot
         movement.MoveToTarg();
     }
 
-    public void Die()
+    public override void Die()
     {
+        StopAllCoroutines();
         movement.SetTaget(null);
         Destroy(gameObject);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (movement.GetTarget() == null)
         {
@@ -83,7 +87,7 @@ public class BotScr : MonoBehaviour, IBot
         {
             if (!isAtck)
             {
-                AttackTarg(movement.GetTarget().GetComponent<ObjScr>());
+                AttackTarg(movement.GetTarget().GetComponent<EntentyScr>());
             }
         }
     }
@@ -113,22 +117,29 @@ public class BotScr : MonoBehaviour, IBot
         data.damage += mod;
     }
 
-    private IEnumerator AtkUnitlDie(ObjScr targ)
+    private IEnumerator AtkUnitlDie(EntentyScr targ)
     {
-        while (movement.target != null)
+        if (targ != null)
+        {
+
+        while (movement.GetTarget() != null)
         {
             yield return wait(1f);
-            if (targ.GetHp() <= data.damage)
+            if (targ.GetHp() <= data.damage & targ != null & movement.GetTarget() != null)
             {
                 isAtck = false;
-                movement.SetTaget(null);
-                
                 data.score++;
                 ui.onScoreChange.Invoke();
                 movement.isReached = false;
+                this.IncreaseDamage(2);
             }
-            targ.ApplyDamage(data.damage);            
+            targ.ApplyDamage(data.damage);
+
         }
+        movement.SetTaget(null);
+            targ = null;
+        }
+        
         yield return null;
     }
 
@@ -142,5 +153,9 @@ public class BotScr : MonoBehaviour, IBot
 
             yield return null;
         }
+    }
+    public override int GetHp()
+    {
+        return data.health;
     }
 }

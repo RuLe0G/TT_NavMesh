@@ -10,5 +10,5 @@ interface IBot : IObj
 
     void Generate();
 
-    void AttackTarg(ObjScr targ);
+    void AttackTarg(EntentyScr targ);
 }
