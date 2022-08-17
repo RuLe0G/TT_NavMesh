@@ -1,14 +1,18 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
-
+/// <summary>
+/// Класс UI параметров объекта 
+/// </summary>
 public class UIObj : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text hpText;
 
     private ObjData data;
-
+    /// <summary>
+    /// Событие изменения ХП
+    /// </summary>
     public UnityEvent onHpChange;
 
     private void Start()

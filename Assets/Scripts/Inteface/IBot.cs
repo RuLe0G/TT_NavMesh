@@ -1,5 +1,6 @@
-using UnityEngine;
-
+/// <summary>
+/// базовый интерфейс бота
+/// </summary>
 interface IBot : IObj
 {
     void IncreaseDamage(int mod);

@@ -1,16 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
-
+/// <summary>
+/// Класс передвижения бота
+/// </summary>
 public class BotMovement : MonoBehaviour
 {
+    /// <summary>
+    /// Объект/цель движения
+    /// </summary>
     public Transform target;
     private NavMeshAgent agent;
-
+    /// <summary>
+    /// Объект характеристик бота
+    /// </summary>
     public BotData botData;
-
+    /// <summary>
+    /// Определяет достиг ли бот цели
+    /// </summary>
     public bool isReached = false;
 
     private void Start()
@@ -18,18 +25,28 @@ public class BotMovement : MonoBehaviour
         botData = GetComponent<BotData>();
         agent = GetComponent<NavMeshAgent>(); 
     }
+    /// <summary>
+    /// Инициализация NavMeshAgent, изменение скорости
+    /// </summary>
+    /// <param name="speed">Скорость объекта</param>
     public void Init(float speed)
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
     }
-
+    /// <summary>
+    /// Функция запускает корутину движения.
+    /// </summary>
     public void MoveToTarg()
     {
         StartCoroutine(Atach(target));
     }
 
-
+    /// <summary>
+    /// Движение в сторону таргета, до приближения
+    /// </summary>
+    /// <param name="trg">Метка/цель</param>
+    /// <returns></returns>
     private IEnumerator Atach(Transform trg)
     {
         if (trg != null)
@@ -65,7 +82,10 @@ public class BotMovement : MonoBehaviour
         else
             return false;
     }
-
+    /// <summary>
+    /// Функция высчитывает длину пути до объекта
+    /// </summary>
+    /// <returns></returns>
     public float CalculatePath()
     {
         NavMeshPath path = new NavMeshPath();
@@ -86,16 +106,26 @@ public class BotMovement : MonoBehaviour
         }
         return pathLength;
     }
-
+    /// <summary>
+    /// Установить метку на входной объект
+    /// </summary>
+    /// <param name="trg"></param>
     public void SetTaget(Transform trg)
     {
         target = trg;
     }
+    /// <summary>
+    /// Получить объект на котором метка
+    /// </summary>
+    /// <returns></returns>
     public Transform GetTarget()
     {
         return target;
     }
-
+    /// <summary>
+    /// Функция поиска ближайшего объекта
+    /// </summary>
+    /// <returns></returns>
     public Transform MarkClosedTarget()
     {
 
@@ -128,6 +158,10 @@ public class BotMovement : MonoBehaviour
         }
         return null;
     }
+    /// <summary>
+    /// Функция поиска случайного объекта
+    /// </summary>
+    /// <returns></returns>
     public Transform MarkRandomTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, 35f, LayerMask.GetMask("isObj"));

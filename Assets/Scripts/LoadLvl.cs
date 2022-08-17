@@ -1,12 +1,18 @@
-using UnityEngine.SceneManagement;
-using UnityEngine;
-using System.Collections;
 using System;
-
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+/// <summary>
+/// Класс загрузки уровня
+/// </summary>
 public static class LoadLvl
 {
     private class LoadMonoBehaviour : MonoBehaviour { }
     private static Action onLoadCallback;
+    /// <summary>
+    /// Начать переход на выбранную сцену. Загрузить «прослойку» в виде сцены загрузки
+    /// </summary>
+    /// <param name="scenes"></param>
     public static void StartLoad(E_Scenes scenes)
     {
         onLoadCallback = () =>

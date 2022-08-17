@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-
+/// <summary>
+/// Класс UI параметров объекта 
+/// </summary>
 public class UIBot : MonoBehaviour
 {
     [SerializeField]
@@ -12,8 +12,13 @@ public class UIBot : MonoBehaviour
     private TMP_Text scoreText;
 
     private BotData data;
-
+    /// <summary>
+    /// Событие изменение ХП
+    /// </summary>
     public UnityEvent onHpChange;
+    /// <summary>
+    /// Событие изменения счета
+    /// </summary>
     public UnityEvent onScoreChange;
 
     private void Start()
