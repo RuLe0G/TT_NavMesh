@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(ObjData))]
-public class ObjScr : MonoBehaviour, IObj
+public class ObjScr : EntentyScr, IObj
 {
     private ObjData data;
     private UIObj ui;
@@ -13,22 +14,20 @@ public class ObjScr : MonoBehaviour, IObj
         ui = GetComponent<UIObj>();
         data = GetComponent<ObjData>();
     }
-    public void ApplyDamage(int damage)
+    public override void ApplyDamage(int damage)
     {
-        data.health -= damage;
-        ui.onHpChange.Invoke();
-
-        if (data.health <= 0)
+        if (data != null)
         {
-            Die();
+            data.health -= damage;
+            ui.onHpChange.Invoke();
+
+            if (data.health <= 0)
+            {
+                Die();
+            }
         }
     }
-
-    public void Die()
-    {
-        Destroy(gameObject);
-    }
-    public int GetHp()
+    public override int GetHp()
     {
         return data.health;
     }

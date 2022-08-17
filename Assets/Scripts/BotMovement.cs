@@ -11,7 +11,8 @@ public class BotMovement : MonoBehaviour
 
     public BotData botData;
 
-    
+    public bool isReached = false;
+
     private void Start()
     { 
         botData = GetComponent<BotData>();
@@ -27,27 +28,42 @@ public class BotMovement : MonoBehaviour
     {
         StartCoroutine(Atach(target));
     }
-    public bool isReached;
 
-    private IEnumerator Atach(Transform target)
+
+    private IEnumerator Atach(Transform trg)
     {
+        if (trg != null)
+        {
+
         while(!CheckDestinationReached())
-        {            
-            agent.SetDestination(target.position);
+        {
+            if (trg != null)
+            {                
+            agent.SetDestination(trg.position); yield return null;
+            }
             yield return null;
         }
         agent.SetDestination(this.transform.position);
+        isReached = true;
+        yield return null;
+
+        }
         yield return null;
     }
 
     private bool CheckDestinationReached()
     {
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget < 1.5f)
+        if (target != null)
         {
-            return true;
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            if (distanceToTarget < 1.5f)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
+        else
+            return false;
     }
 
     public float CalculatePath()
@@ -75,9 +91,14 @@ public class BotMovement : MonoBehaviour
     {
         target = trg;
     }
+    public Transform GetTarget()
+    {
+        return target;
+    }
 
     public Transform MarkClosedTarget()
     {
+
         Collider[] hits = Physics.OverlapSphere(transform.position, 35f, LayerMask.GetMask("isObj"));
         if (hits.Length > 0)
         {
@@ -98,7 +119,12 @@ public class BotMovement : MonoBehaviour
                     }
                 }
             }
-            return hits[num2].transform;
+            if (hits[num2].transform.root != transform)
+            {
+                return hits[num2].transform;
+            }
+            else
+                return null;
         }
         return null;
     }
