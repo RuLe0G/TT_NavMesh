@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.Jobs;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
+/// <summary>
+/// Класс логики бота
+/// </summary>
 [RequireComponent(typeof(BotData), typeof(BotMovement))]
 public class BotScr : EntentyScr, IBot
 {
@@ -40,17 +38,20 @@ public class BotScr : EntentyScr, IBot
     public override void ApplyDamage(int damage)
     {
         if (data != null)
-        {        
-        data.health -= damage;
-        ui.onHpChange.Invoke();
-
-        if (data.health <= 0)
         {
-            Die();
-        }
+            data.health -= damage;
+            ui.onHpChange.Invoke();
+
+            if (data.health <= 0)
+            {
+                Die();
+            }
         }
     }
-
+    /// <summary>
+    /// Атака цели, пока она жива
+    /// </summary>
+    /// <param name="targ"></param>
     public void AttackTarg(EntentyScr targ)
     {
         if (targ != null)
@@ -64,7 +65,9 @@ public class BotScr : EntentyScr, IBot
 
         }
     }
-
+    /// <summary>
+    /// Запускает движение в сторону цели
+    /// </summary>
     public void Attach()
     {
         movement.MoveToTarg();
@@ -91,7 +94,9 @@ public class BotScr : EntentyScr, IBot
             }
         }
     }
-
+    /// <summary>
+    /// Объект ищет цель и устанавливает в качестве метки.
+    /// </summary>
     public void FindTarg()
     {
         var targ = movement.MarkClosedTarget();
@@ -122,24 +127,24 @@ public class BotScr : EntentyScr, IBot
         if (targ != null)
         {
 
-        while (movement.GetTarget() != null)
-        {
-            yield return wait(1f);
-            if (targ.GetHp() <= data.damage & targ != null & movement.GetTarget() != null)
+            while (movement.GetTarget() != null)
             {
-                isAtck = false;
-                data.score++;
-                ui.onScoreChange.Invoke();
-                movement.isReached = false;
-                this.IncreaseDamage(2);
-            }
-            targ.ApplyDamage(data.damage);
+                yield return wait(1f);
+                if (targ.GetHp() <= data.damage & targ != null & movement.GetTarget() != null)
+                {
+                    isAtck = false;
+                    data.score++;
+                    ui.onScoreChange.Invoke();
+                    movement.isReached = false;
+                    this.IncreaseDamage(2);
+                }
+                targ.ApplyDamage(data.damage);
 
-        }
-        movement.SetTaget(null);
+            }
+            movement.SetTaget(null);
             targ = null;
         }
-        
+
         yield return null;
     }
 

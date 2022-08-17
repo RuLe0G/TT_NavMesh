@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-
+/// <summary>
+/// Класс логики объекта
+/// </summary>
 [RequireComponent(typeof(ObjData))]
 public class ObjScr : EntentyScr, IObj
 {

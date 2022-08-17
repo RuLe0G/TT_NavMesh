@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// функция обратного вызова
+/// </summary>
 public class LoadCallback : MonoBehaviour
 {
     private bool isFirstUpdate = true;
