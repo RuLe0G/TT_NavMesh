@@ -26,6 +26,8 @@ public class BotScr : MonoBehaviour, IBot
 
     private UIBot ui;
 
+    private bool isAtck = false;
+
     private void Start()
     {
         data = GetComponent<BotData>();
@@ -47,9 +49,17 @@ public class BotScr : MonoBehaviour, IBot
     }
 
     public void AttackTarg(ObjScr targ)
-    {        
+    {
         if (targ != null)
-        StartCoroutine(AtkUnitlDie(targ));
+        {
+            isAtck = true;
+            StartCoroutine(AtkUnitlDie(targ));
+        }
+        else
+        {
+            StopCoroutine(AtkUnitlDie(targ));
+            
+        }
     }
 
     public void Attach()
@@ -63,29 +73,29 @@ public class BotScr : MonoBehaviour, IBot
         Destroy(gameObject);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        if (movement.isReached)
-        {
-            AttackTarg(movement.target.GetComponent<ObjScr>());
-        }
-        if (movement.target == null)
+        if (movement.GetTarget() == null)
         {
             FindTarg();
+        }
+        else if (movement.isReached)
+        {
+            if (!isAtck)
+            {
+                AttackTarg(movement.GetTarget().GetComponent<ObjScr>());
+            }
         }
     }
 
     public void FindTarg()
     {
-        if (movement.target == null)
-        {
-            var targ = movement.MarkClosedTarget();
+        var targ = movement.MarkClosedTarget();
 
-            if (targ != null)
-            { 
+        if (targ != null)
+        {
             movement.SetTaget(targ);
             Attach();
-            }
         }
     }
 
@@ -106,16 +116,31 @@ public class BotScr : MonoBehaviour, IBot
     private IEnumerator AtkUnitlDie(ObjScr targ)
     {
         while (movement.target != null)
-        {        
+        {
+            yield return wait(1f);
             if (targ.GetHp() <= data.damage)
-            {                
+            {
+                isAtck = false;
+                movement.SetTaget(null);
+                
                 data.score++;
                 ui.onScoreChange.Invoke();
                 movement.isReached = false;
-            }            
-            targ.ApplyDamage(data.damage);
-            yield return null;
+            }
+            targ.ApplyDamage(data.damage);            
         }
         yield return null;
+    }
+
+    private IEnumerator wait(float waitTime)
+    {
+        float counter = 0;
+
+        while (counter < waitTime)
+        {
+            counter += Time.deltaTime;
+
+            yield return null;
+        }
     }
 }

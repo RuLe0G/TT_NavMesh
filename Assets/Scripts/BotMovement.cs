@@ -11,7 +11,7 @@ public class BotMovement : MonoBehaviour
 
     public BotData botData;
 
-    public bool isReached = false;
+    private bool isReached = false;
 
     private void Start()
     { 
@@ -76,6 +76,10 @@ public class BotMovement : MonoBehaviour
     public void SetTaget(Transform trg)
     {
         target = trg;
+    }
+    public Transform GetTarget()
+    {
+        return target;
     }
 
     public Transform MarkClosedTarget()
